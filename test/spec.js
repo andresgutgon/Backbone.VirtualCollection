@@ -48,6 +48,7 @@ describe('Backbone.VirtualCollection', function () {
       assert.equal(calls, JSON.stringify([ 'close' ]));
       event_emitter.on.restore()
     });
+
     it('should accept a destroy_with option and bind destroy event (Marionette 2.*)', function () {
       var vc, calls, collection, event_emitter;
       collection = new Backbone.Collection([{id: 1, foo: 'bar'}]);
@@ -56,7 +57,14 @@ describe('Backbone.VirtualCollection', function () {
       vc = new VirtualCollection(collection, {destroy_with: event_emitter});
       calls = JSON.stringify(_.map(event_emitter.on.args, function (i) {return i[0]; }));
       assert.equal(calls, JSON.stringify([ 'destroy' ]));
-      event_emitter.on.restore()
+      event_emitter.on.restore();
+    });
+
+    it('should copy constructor from parent collection', function () {
+      var vc, calls, collection, event_emitter;
+      collection = new Backbone.Collection([{id: 1, foo: 'bar'}]);
+      vc = new VirtualCollection(collection);
+      assert.equal(vc.constructor, collection.constructor);
     });
   });
 

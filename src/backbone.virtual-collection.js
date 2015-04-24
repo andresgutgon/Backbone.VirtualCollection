@@ -22,6 +22,7 @@ var VirtualCollection = Backbone.VirtualCollection = Backbone.Collection.extend(
     this._proxyParentEvents(['sync', 'request', 'error']);
 
     this.initialize.apply(this, arguments);
+    this.constructor = collection.constructor;
   },
 
   // Marionette 1.*
